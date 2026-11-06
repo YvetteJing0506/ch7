@@ -1,5 +1,12 @@
-//Q1:
-//Q2:
+//Q1: Someone who bought microsoft stock in 2000 likely purchased the stock near 
+	//its peak price and experienced significant loss due to the drop.
+//Q2: The economic collapse (the Great Recession) heappened during the year of 2008; 
+    //It is triggered by the collapse of the U.S. housing and subprime mortgage markets; 
+    //This makes sense since and economic collapse will cause stock to go down. 
+
+//Q1: dipBuyer had the most times that it gained most, and it has never lost money; 
+	//No. Each method performed best on different stock data files.
+//Q2: For 
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,7 +16,7 @@ import java.util.Scanner;
 public class StockTrader {
 
     public static void main(String[] args) throws FileNotFoundException {
-        Scanner in = new Scanner(new File("rising.txt"));
+        Scanner in = new Scanner(new File("tiny.txt"));
         String symbol = in.next();
         int n = in.nextInt();
         int[] years = new int[n];
@@ -99,7 +106,7 @@ public class StockTrader {
 		return cash + shares * prices[prices.length - 1];
 	}
 	public static String decide(double[] history, boolean holding, double boughtAt) {
-		return movingAverage(history, holding, boughtAt); //change to switch strategies
+		return myStrategy(history, holding, boughtAt); //change to switch strategies
 	}
 	public static String buyAndHold(double[] history, boolean holding, double boughtAt) {
 		return "BUY";
@@ -138,6 +145,16 @@ public class StockTrader {
 		} return "HOLD";
 	}
 	public static String myStrategy(double[] history, boolean holding, double boughtAt) {
-		
+		if (history.length<2) {
+			return "HOLD";
+		} if (holding==false) {
+			if (history[history.length-1]/history[history.length-2]>=1.03) {
+				return "BUY";
+			} 
+		} if (holding==true) {
+			if (history[history.length-1]/history[history.length-2]<0.97 ) {
+				return "SELL";
+			} 
+		} return "HOLD";
 	}
 }
